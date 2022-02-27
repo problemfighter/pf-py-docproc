@@ -53,10 +53,13 @@ class PFPDCSVProcessor:
             obj = object_class()
         for index, key in enumerate(key_mapping):
             if key and self._is_index_exist(csv_cols, index):
+                value = csv_cols[index]
+                if isinstance(value, str):
+                    value = value.strip()
                 if isinstance(obj, dict):
-                    obj[key] = csv_cols[index]
+                    obj[key] = value
                 elif hasattr(obj, key):
-                    setattr(obj, key, csv_cols[index])
+                    setattr(obj, key, value)
         if custom_proces:
             obj = custom_proces.process(csv_cols, obj)
         return obj
