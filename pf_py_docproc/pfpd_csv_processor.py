@@ -16,7 +16,7 @@ class PFPDCSVProcessor:
     def file_to_csv_obj(self, file_path, delimiter=','):
         if not PFPFFileUtil.is_exist(file_path):
             raise PFException("Invalid CSV File")
-        with open(file_path) as csv_file:
+        with open(file_path, encoding="utf-8") as csv_file:
             return csv.reader(csv_file, delimiter=delimiter)
 
     def _is_index_exist(self, data: list, index):
@@ -37,7 +37,7 @@ class PFPDCSVProcessor:
             raise PFException("Invalid CSV File")
 
         definition_list = []
-        with open(file_path) as csv_file:
+        with open(file_path, encoding="utf-8") as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=delimiter)
             for cols in csv_reader:
                 obj = self._csv_map_by_key_mapper(cols, key_mapping, object_class, custom_proces)
